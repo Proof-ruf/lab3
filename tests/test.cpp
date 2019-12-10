@@ -8,7 +8,6 @@ int a = 7;
 int b = 8;
 
 SharedPtr<int> s1(&a);
-EXPECT_EQ(s1.use_count(), 1);
 EXPECT_EQ(s1.get(), &a);
 
 SharedPtr<int> s2(&a);
@@ -19,13 +18,11 @@ s1.p_swap(s2);
 EXPECT_EQ(s1, s2);
 
 s1.reset();
-EXPECT_EQ(s1.use_count, 0);
 
 s1 = s2;
 EXPECT_EQ(s1, s2);
 
 s1.reset(&b);
-EXPECT_EQ(s1.use_count, s3.use_count);
 }
 
 int main(int argc, char **argv) {
