@@ -3,6 +3,9 @@
 #include <header.hpp>
 
 template<typename T>
+map<int64_t, atomic_uint> SharedPtr<T>::ptr_map{};
+
+template<typename T>
 SharedPtr<T>::SharedPtr() {
     p_obj = nullptr;
 }
@@ -30,7 +33,7 @@ SharedPtr<T>::~SharedPtr() {
     ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
     if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
         ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
-        delete p_obj;
+        free(p_obj);
     }
 }
 
@@ -80,7 +83,7 @@ void SharedPtr<T>::reset() {
     ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
     if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
         ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
-        delete p_obj;
+        free(p_obj);
     }
     p_obj = nullptr;
 }
@@ -90,7 +93,7 @@ void SharedPtr<T>::reset(T *ptr) {
     ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
     if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
         ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
-        delete p_obj;
+        free(p_obj);
     }
     p_obj = ptr;
     ptr_map[reinterpret_cast<int64_t>(p_obj)]++;

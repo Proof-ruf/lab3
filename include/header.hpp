@@ -7,16 +7,17 @@
 #include <map>
 #include <stdint.h>
 
-using std::atomic_size_t;
+using std::atomic_uint;
 using std::map;
 using std::int64_t;
 
 template <typename T>
+
 class SharedPtr {
 public:
     SharedPtr();
-    explicit SharedPtr(T* ptr);
-    SharedPtr(const SharedPtr& r);
+    SharedPtr(T* ptr);
+    explicit SharedPtr(const SharedPtr& r);
     SharedPtr(SharedPtr&& r);
     ~SharedPtr();
     auto operator=(const SharedPtr& r) -> SharedPtr&;
@@ -35,7 +36,8 @@ public:
     auto use_count() const -> size_t;
 
     T* p_obj;
-    static map<int64_t , atomic_size_t> ptr_map;
-};
+
+    static map<int64_t, atomic_uint> ptr_map;
+    };
 
 #endif // INCLUDE_HEADER_HPP_
