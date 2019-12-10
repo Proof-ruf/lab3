@@ -3,7 +3,7 @@
 #include <header.hpp>
 
 template<typename T>
-map<int64_t, atomic_size_t> SharedPtr<T>::ptr_map{};
+map<int64_t, size_t> SharedPtr<T>::ptr_map{};
 
 template<typename T>
 SharedPtr<T>::SharedPtr() {
