@@ -3,7 +3,7 @@
 #include <header.hpp>
 
 template<typename T>
-map<int, atomic_uint> SharedPtr<T>::ptr_map{};
+map<int64_t, atomic_size_t> SharedPtr<T>::ptr_map{};
 
 template<typename T>
 SharedPtr<T>::SharedPtr() {
@@ -13,26 +13,26 @@ SharedPtr<T>::SharedPtr() {
 template<typename T>
 SharedPtr<T>::SharedPtr(T *ptr) {
     p_obj = ptr;
-    ptr_map[reinterpret_cast<int>(p_obj)]++;
+    ptr_map[reinterpret_cast<int64_t>(p_obj)]++;
 }
 
 template<typename T>
 SharedPtr<T>::SharedPtr(const SharedPtr &r) {
     p_obj = r.p_obj;
-    ptr_map[reinterpret_cast<int>(p_obj)]++;
+    ptr_map[reinterpret_cast<int64_t>(p_obj)]++;
 }
 
 template<typename T>
 SharedPtr<T>::SharedPtr(SharedPtr &&r) {
     p_obj = r.p_obj;
-    ptr_map[reinterpret_cast<int>(p_obj)]++;
+    ptr_map[reinterpret_cast<int64_t>(p_obj)]++;
 }
 
 template<typename T>
 SharedPtr<T>::~SharedPtr() {
-    ptr_map[reinterpret_cast<int>(p_obj)]--;
-    if (ptr_map[reinterpret_cast<int>(p_obj)] == 0) {
-        ptr_map.erase(reinterpret_cast<int>(p_obj));
+    ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
+    if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
+        ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
         free(p_obj);
     }
 }
@@ -80,9 +80,9 @@ auto SharedPtr<T>::get() -> T * {
 
 template<typename T>
 void SharedPtr<T>::reset() {
-    ptr_map[reinterpret_cast<int>(p_obj)]--;
-    if (ptr_map[reinterpret_cast<int>(p_obj)] == 0) {
-        ptr_map.erase(reinterpret_cast<int>(p_obj));
+    ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
+    if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
+        ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
         free(p_obj);
     }
     p_obj = nullptr;
@@ -90,13 +90,13 @@ void SharedPtr<T>::reset() {
 
 template<typename T>
 void SharedPtr<T>::reset(T *ptr) {
-    ptr_map[reinterpret_cast<int>(p_obj)]--;
-    if (ptr_map[reinterpret_cast<int>(p_obj)] == 0) {
-        ptr_map.erase(reinterpret_cast<int>(p_obj));
+    ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
+    if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
+        ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
         free(p_obj);
     }
     p_obj = ptr;
-    ptr_map[reinterpret_cast<int>(p_obj)]++;
+    ptr_map[reinterpret_cast<int64_t>(p_obj)]++;
 }
 
 template<typename T>
@@ -108,5 +108,5 @@ void SharedPtr<T>::p_swap(SharedPtr &r) {
 
 template<typename T>
 auto SharedPtr<T>::use_count() const -> size_t {
-    return ptr_map[reinterpret_cast<int>(p_obj)];
+    return ptr_map[reinterpret_cast<int64_t>(p_obj)];
 }

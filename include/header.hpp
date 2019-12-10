@@ -5,8 +5,10 @@
 
 #include <atomic>
 #include <map>
+#include <stdint.h>
 
-using std::atomic_uint;
+using std::int64_t;
+using std::atomic_size_t;
 using std::map;
 
 template <typename T>
@@ -35,7 +37,7 @@ public:
 
     T* p_obj;
 
-    static map<int, atomic_uint> ptr_map;
-    };
+    static map<int64_t , atomic_size_t> ptr_map;
+};
 
 #endif // INCLUDE_HEADER_HPP_
