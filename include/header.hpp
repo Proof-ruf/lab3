@@ -3,13 +3,13 @@
 #ifndef INCLUDE_HEADER_HPP_
 #define INCLUDE_HEADER_HPP_
 
-#include <clocale>
 #include <atomic>
 #include <map>
+#include <stdint.h>
 
 using std::atomic_size_t;
 using std::map;
-
+using std::int64_t;
 
 template <typename T>
 class SharedPtr {
@@ -30,14 +30,12 @@ public:
     auto get() -> T*;
     void reset();
     void reset(T* ptr);
-    void swap(SharedPtr& r);
+    void p_swap(SharedPtr& r);
 
-    // возвращает количество объектов SharedPtr, которые ссылаются на тот же управляемый объект
     auto use_count() const -> size_t;
 
-
     T* p_obj;
-    static map<long long, atomic_size_t> ptr_map;
+    static map<int64_t , atomic_size_t> ptr_map;
 };
 
 #endif // INCLUDE_HEADER_HPP_

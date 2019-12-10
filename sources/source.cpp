@@ -10,26 +10,26 @@ SharedPtr<T>::SharedPtr() {
 template<typename T>
 SharedPtr<T>::SharedPtr(T *ptr) {
     p_obj = ptr;
-    ptr_map[static_cast<long long>(p_obj)]++;
+    ptr_map[static_cast<int64_t>(p_obj)]++;
 }
 
 template<typename T>
 SharedPtr<T>::SharedPtr(const SharedPtr &r) {
     p_obj = r.p_obj;
-    ptr_map[static_cast<long long>(p_obj)]++;
+    ptr_map[static_cast<int64_t>(p_obj)]++;
 }
 
 template<typename T>
 SharedPtr<T>::SharedPtr(SharedPtr &&r) {
     p_obj = r.p_obj;
-    ptr_map[static_cast<long long>(p_obj)]++;
+    ptr_map[static_cast<int64_t>(p_obj)]++;
 }
 
 template<typename T>
 SharedPtr<T>::~SharedPtr() {
-    ptr_map[static_cast<long long>(p_obj)]--;
-    if (ptr_map[static_cast<long long>(p_obj)] == 0) {
-        ptr_map.erase(static_cast<long long>(p_obj));
+    ptr_map[static_cast<int64_t>(p_obj)]--;
+    if (ptr_map[static_cast<int64_t>(p_obj)] == 0) {
+        ptr_map.erase(static_cast<int64_t>(p_obj));
         delete p_obj;
     }
 }
@@ -78,17 +78,18 @@ auto SharedPtr<T>::get() -> T * {
 template<typename T>
 void SharedPtr<T>::reset() {
     ~SharedPtr();
-    this->SharedPtr();
+    SharedPtr();
 }
 
 template<typename T>
 void SharedPtr<T>::reset(T *ptr) {
     ~SharedPtr();
-    this->SharedPtr(ptr);
+    p_obj = ptr;
+    ptr_map[static_cast<int64_t>(p_obj)]++;
 }
 
 template<typename T>
-void SharedPtr<T>::swap(SharedPtr &r) {
+void SharedPtr<T>::p_swap(SharedPtr &r) {
     T *tmp = p_obj;
     p_obj = r.p_obj;
     r.p_obj = tmp;
@@ -97,5 +98,6 @@ void SharedPtr<T>::swap(SharedPtr &r) {
 // возвращает количество объектов SharedPtr, которые ссылаются на тот же управляемый объект
 template<typename T>
 auto SharedPtr<T>::use_count() const -> size_t {
-    return ptr_map[static_cast<long long>(p_obj)];
+    return ptr_map[static_cast<int64_t>(p_obj)];
 }
+
