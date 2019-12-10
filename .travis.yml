@@ -1,9 +1,11 @@
 os: linux
 sudo: required
 language:
-- minimal
+- shell
 services:
 - docker
+sudo:
+- true
 
 jobs:
   include:
