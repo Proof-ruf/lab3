@@ -16,7 +16,7 @@ template <typename T>
 class SharedPtr {
 public:
     SharedPtr();
-    SharedPtr(T* ptr);
+    explicit SharedPtr(T* ptr);
     explicit SharedPtr(const SharedPtr& r);
     SharedPtr(SharedPtr&& r);
     ~SharedPtr();

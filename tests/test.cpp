@@ -15,7 +15,7 @@ SharedPtr<int> s2(&a);
 SharedPtr<int> s3(&b);
 
 EXPECT_EQ(*s1, a);
-s1.swap(s2);
+s1.p_swap(s2);
 EXPECT_EQ(s1, s2);
 
 s1.reset();
