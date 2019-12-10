@@ -1,5 +1,4 @@
 os: linux
-sudo: true
 language: shell
 services:
 - docker
