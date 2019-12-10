@@ -95,7 +95,6 @@ void SharedPtr<T>::p_swap(SharedPtr &r) {
     r.p_obj = tmp;
 }
 
-// возвращает количество объектов SharedPtr, которые ссылаются на тот же управляемый объект
 template<typename T>
 auto SharedPtr<T>::use_count() const -> size_t {
     return ptr_map[static_cast<int64_t>(p_obj)];
