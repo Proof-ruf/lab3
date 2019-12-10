@@ -1,11 +1,8 @@
 os: linux
-sudo: required
-language:
-- shell
+sudo: true
+language: shell
 services:
 - docker
-sudo:
-- true
 
 jobs:
   include:
