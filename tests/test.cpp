@@ -8,12 +8,10 @@ int a = 7;
 int b = 8;
 
 SharedPtr<int> s1(&a);
-EXPECT_EQ(s1.get(), &a);
 
 SharedPtr<int> s2(&a);
 SharedPtr<int> s3(&b);
 
-EXPECT_EQ(*s1, a);
 s1.p_swap(s2);
 
 s1.reset(&b);
