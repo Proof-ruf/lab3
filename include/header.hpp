@@ -15,29 +15,106 @@ template <typename T>
 
 class SharedPtr {
 public:
-    SharedPtr();
-    explicit SharedPtr<T>(T* ptr);
-    explicit SharedPtr<T>(const SharedPtr& r);
-    SharedPtr<T>(SharedPtr&& r);
-    ~SharedPtr<T>();
-    auto operator=(const SharedPtr& r) -> SharedPtr&;
-    auto operator=(SharedPtr&& r) -> SharedPtr&;
+    SharedPtr()
+    {
+        p_obj = nullptr;
+    }
+    explicit SharedPtr<T>(T* ptr)
+    {
+        p_obj = ptr;
+        ptr_map[reinterpret_cast<int64_t>(p_obj)]++;
+    }
+    explicit SharedPtr<T>(const SharedPtr& r)
+    {
+        p_obj = r.p_obj;
+        ptr_map[reinterpret_cast<int64_t>(p_obj)]++;
+    }
+    SharedPtr<T>(SharedPtr&& r)
+    {
+        p_obj = r.p_obj;
+        ptr_map[reinterpret_cast<int64_t>(p_obj)]++;
+    }
+    ~SharedPtr<T>()
+    {
+        ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
+        if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
+            ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
+            free(p_obj);
+        }
+    }
+    auto operator=(const SharedPtr& r) -> SharedPtr&
+    {
+        if (p_obj != r.p_obj) {
+            reset(r.p_obj);
+        }
+        return *this;
+    }
+    auto operator=(SharedPtr&& r) -> SharedPtr&
+    {
+        if (p_obj != r.p_obj) {
+            reset(r.p_obj);
+        }
+        return *this;
+    }
 
     // проверяет, указывает ли указатель на объект
-    explicit operator bool() const;
+    explicit operator bool() const
+    {
+        if (!p_obj) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-    auto operator*() const -> T&;
-    auto operator->() const -> T*;
-    auto get() -> T*;
-    void reset();
-    void reset(T* ptr);
-    void p_swap(SharedPtr& r);
+    auto operator*() const -> T&
+    {
+        return *p_obj;
+    }
+    auto operator->() const -> T*
+    {
+        return p_obj;
+    }
+    auto get() -> T*
+    {
+        return *p_obj;
+    }
+    void reset()
+    {
+        ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
+        if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
+            ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
+            free(p_obj);
+        }
+        p_obj = nullptr;
+    }
+    void reset(T* ptr)
+    {
+        ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
+        if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
+            ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
+            free(p_obj);
+        }
+        p_obj = ptr;
+        ptr_map[reinterpret_cast<int64_t>(p_obj)]++;
+    }
+    void p_swap(SharedPtr& r)
+    {
+        T *tmp = p_obj;
+        p_obj = r.p_obj;
+        r.p_obj = tmp;
+    }
 
-    auto use_count() const -> size_t;
+    auto use_count() const -> size_t
+    {
+        return ptr_map[reinterpret_cast<int64_t>(p_obj)];
+    }
 
     T* p_obj;
 
-    static map<int64_t , size_t> ptr_map;
+    static map<int64_t , size_t> ptr_map{};
 };
+
+map<int64_t, size_t> SharedPtr<T>::ptr_map{};
 
 #endif // INCLUDE_HEADER_HPP_
