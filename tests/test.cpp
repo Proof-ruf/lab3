@@ -9,15 +9,15 @@ int* a = new int;
 int* b = new int;
 *b = 7;
 
-SharedPtr<int> s1(&a);
+SharedPtr<int> s1(a);
 EXPECT_EQ(s1.use_count(), 1);
-EXPECT_EQ(s1.get(), &a);
+EXPECT_EQ(s1.get(), a);
 
-SharedPtr<int> s2(&a);
-SharedPtr<int> s3(&b);
+SharedPtr<int> s2(a);
+SharedPtr<int> s3(b);
 
 EXPECT_EQ(*s1, a);
-s1.Pswap(s2);
+s1.p_swap(s2);
 EXPECT_EQ(s1, s2);
 
 s1.reset();
@@ -26,7 +26,7 @@ EXPECT_EQ(s1.use_count(), 0);
 s1 = s2;
 EXPECT_EQ(s1, s2);
 
-s1.reset(&b);
+s1.reset(b);
 EXPECT_EQ(s1.use_count(), s3.use_count());
 }
 
