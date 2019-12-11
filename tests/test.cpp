@@ -9,8 +9,6 @@ int b = 8;
 
 SharedPtr<int> s1(&a);
 SharedPtr<int> s3(&b);
-
-EXPECT_TRUE(true);
 }
 
 int main(int argc, char **argv) {
