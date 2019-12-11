@@ -12,9 +12,6 @@ SharedPtr<int> s1(&a);
 SharedPtr<int> s2(&a);
 SharedPtr<int> s3(&b);
 
-s1.p_swap(s2);
-
-s1.reset(&b);
 EXPECT_TRUE(true);
 }
 
