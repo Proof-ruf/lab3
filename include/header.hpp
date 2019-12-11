@@ -112,7 +112,7 @@ public:
 
     T* p_obj;
 
-    static map<int64_t , size_t> ptr_map{};
+    static map<int64_t , size_t> ptr_map;
 };
 
 template <typename T>
