@@ -39,7 +39,7 @@ public:
         ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
         if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
             ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
-            //delete p_obj;
+            delete p_obj;
         }
     }
     auto operator=(const SharedPtr& r) -> SharedPtr&
@@ -84,7 +84,7 @@ public:
         ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
         if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
             ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
-            //delete p_obj;
+            delete p_obj;
         }
         p_obj = nullptr;
     }
@@ -93,7 +93,7 @@ public:
         ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
         if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
             ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
-            //delete p_obj;
+            delete p_obj;
         }
         p_obj = ptr;
         ptr_map[reinterpret_cast<int64_t>(p_obj)]++;
