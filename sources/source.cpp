@@ -2,5 +2,3 @@
 
 #include <header.hpp>
 
-template<typename T>
-map<int64_t, size_t> SharedPtr<T>::ptr_map{};
