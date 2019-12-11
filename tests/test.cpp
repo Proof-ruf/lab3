@@ -9,6 +9,7 @@ int b = 8;
 
 SharedPtr<int> s1(&a);
 SharedPtr<int> s3(&b);
+EXPECT_EQ(s1.use_count(),1)
 }
 
 int main(int argc, char **argv) {
