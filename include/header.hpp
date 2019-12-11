@@ -39,7 +39,7 @@ public:
         ptr_map[reinterpret_cast<int64_t>(p_obj)]--;
         if (ptr_map[reinterpret_cast<int64_t>(p_obj)] == 0) {
             ptr_map.erase(reinterpret_cast<int64_t>(p_obj));
-            delete p_obj;
+            //delete p_obj;
         }
     }
     auto operator=(const SharedPtr& r) -> SharedPtr&
