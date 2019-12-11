@@ -8,8 +8,6 @@ int a = 7;
 int b = 8;
 
 SharedPtr<int> s1(&a);
-
-SharedPtr<int> s2(&a);
 SharedPtr<int> s3(&b);
 
 EXPECT_TRUE(true);
