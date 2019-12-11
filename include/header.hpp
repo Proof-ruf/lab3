@@ -77,7 +77,7 @@ public:
     }
     auto get() -> T*
     {
-        return *p_obj;
+        return p_obj;
     }
     void reset()
     {
