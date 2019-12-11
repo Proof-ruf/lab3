@@ -4,11 +4,13 @@
 #include "header.hpp"
 
 TEST(Example, EmptyTest) {
-int a = 7;
-int b = 8;
+int* a = new int;
+*a = 7;
+int* b = new int;
+*b = 7;
 
-SharedPtr<int> s1(&a);
-SharedPtr<int> s3(&b);
+SharedPtr<int> s1(a);
+SharedPtr<int> s3(b);
 EXPECT_EQ(s1.use_count(),1)
 }
 
