@@ -112,10 +112,10 @@ public:
 
     T* p_obj;
 
-    static map<int64_t , size_t> ptr_map;
+    static map<int64_t , atomic_size_t> ptr_map;
 };
 
 template <typename T>
-map<int64_t, size_t> SharedPtr<T>::ptr_map{};
+map<int64_t, atomic_size_t> SharedPtr<T>::ptr_map{};
 
 #endif // INCLUDE_HEADER_HPP_
