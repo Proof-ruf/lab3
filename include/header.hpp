@@ -6,6 +6,7 @@
 #include <atomic>
 #include <map>
 #include <stdint.h>
+#include <iostream>
 
 using std::int64_t;
 using std::atomic_size_t;
