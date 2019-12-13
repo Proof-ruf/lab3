@@ -101,7 +101,7 @@ public:
     }
     void p_swap(SharedPtr& r)
     {
-        SharedPtr tmp(r);
+        SharedPtr<SharedPtr> tmp(r);
 		r.reset(*this);
 		this.reset(tmp);
     }
