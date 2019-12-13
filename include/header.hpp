@@ -103,7 +103,7 @@ public:
     {
         SharedPtr<SharedPtr> tmp(r);
 		r.reset(this->p_obj);
-		this.reset(tmp.p_obj);
+		this->reset(tmp.p_obj);
     }
 
     auto use_count() const -> size_t
