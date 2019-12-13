@@ -101,9 +101,9 @@ public:
     }
     void p_swap(SharedPtr& r)
     {
-        T *tmp = p_obj;
-        p_obj = r.p_obj;
-        r.p_obj = tmp;
+        SharedPtr tmp(r);
+		r.reset(*this);
+		this.reset(tmp);
     }
 
     auto use_count() const -> size_t
