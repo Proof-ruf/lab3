@@ -102,9 +102,9 @@ public:
     void p_swap(SharedPtr& r)
     {
         SharedPtr tmp;
-		tmp = *this;
-		*this = r;
-		r = tmp;
+        tmp = *this;
+        *this = r;
+        r = tmp;
     }
 
     auto use_count() const -> size_t
