@@ -24,8 +24,8 @@ s1.reset(b);
 EXPECT_EQ(s1.use_count(), 2);
 EXPECT_EQ(s2.use_count(), 2);
 
-s1.swap(s2);
-EXPECT_EQ(s1, 2);
+s3.p_swap(s1);
+EXPECT_EQ(s3, 2);
 }
 
 int main(int argc, char **argv) {
