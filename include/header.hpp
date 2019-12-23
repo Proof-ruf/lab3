@@ -67,7 +67,6 @@ public:
             return true;
         }
     }
-
     auto operator*() const -> T&
     {
         return *p_obj;
@@ -89,6 +88,7 @@ public:
         }
         p_obj = nullptr;
     }
+
     void reset(T* ptr)
     {
         ptr_map[reinterpret_cast<int64_t>(p_obj)]--;

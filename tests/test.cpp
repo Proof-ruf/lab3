@@ -11,6 +11,7 @@ int* b = new int;
 int* c = new int;
 *c = 32;
 
+
 SharedPtr<int> s1(a);
 SharedPtr<int> s2(b);
 SharedPtr<int> s3(c);

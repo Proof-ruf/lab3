@@ -1,0 +1,12 @@
+"D:\CLion 2018.2.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/CLion 2018.2.5/mingw32/bin/mingw32-make.exe" "-DCMAKE_C_COMPILER=D:/CLion 2018.2.5/mingw32/bin/gcc.exe" "-DCMAKE_CXX_COMPILER=D:/CLion 2018.2.5/mingw32/bin/g++.exe" -G "CodeBlocks - MinGW Makefiles" C:\Users\Ivan\Desktop\lab_03_19
+CMake Error at CMakeLists.txt:14 (include):
+  include could not find load file:
+
+    tools/gate/cmake/HunterGate.cmake
+
+
+CMake Error at CMakeLists.txt:16 (HunterGate):
+  Unknown CMake command "HunterGate".
+
+
+-- Configuring incomplete, errors occurred!
